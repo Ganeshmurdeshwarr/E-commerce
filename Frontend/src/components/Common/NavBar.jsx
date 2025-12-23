@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { HiOutlineUser ,HiBars3BottomRight  } from 'react-icons/hi2'
 import { FaBagShopping } from "react-icons/fa6"
 import Searchbar from './Searchbar';
+import CartDrawer from '../Layout/CartDrawer';
 
 const NavBar = () => {
+
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const toggleCartDrawer = () => {
+    setCartOpen(!cartOpen);
+  };
+
   return (
     <>
       <nav className="container mx-auto  flex items-center justify-between py-4 px-6">
@@ -48,7 +56,10 @@ const NavBar = () => {
           <Link to="/profile" className="hover:text-black">
             <HiOutlineUser className="h-6 w-6 text-gray-700" />
           </Link>
-          <button className="relative  hover:text-black">
+          <button
+            onClick={toggleCartDrawer}
+            className="relative  hover:text-black"
+          >
             <FaBagShopping className="h-6 w-6 text-gray-700" />
             <span className="absolute -top-3  bg-red-600 text-white text-sm rounded-full px-2 py-0.5">
               4
@@ -56,7 +67,7 @@ const NavBar = () => {
           </button>
 
           {/* Search  */}
-          <div className='overflow-hidden'>
+          <div className="overflow-hidden">
             <Searchbar />
           </div>
 
@@ -65,6 +76,7 @@ const NavBar = () => {
           </button>
         </div>
       </nav>
+      <CartDrawer cartOpen={cartOpen} toggleCartDrawer={toggleCartDrawer} />
     </>
   );
   
