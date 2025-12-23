@@ -94,17 +94,37 @@ const NavBar = () => {
             <IoMdClose className="h-6 w-6 text-gray-600 " />
           </button>
         </div>
-        <div className='p-4'>
-          <h2 className='text-xl font-semibold mb-4 '>Menu</h2>
-          <nav className='flex flex-col gap-y-4 '>
-            <Link to="#" onclick={toggleCartDrawer} className='block text-gray-600 hove:text-black '>
-            Men</Link>
-            <Link to="#" onclick={toggleCartDrawer} className='block text-gray-600 hove:text-black '>
-            Women</Link>
-            <Link to="#" onclick={toggleCartDrawer} className='block text-gray-600 hove:text-black '>
-            Top Wear</Link>
-            <Link to="#" onClick={toggleCartDrawer} className='block text-gray-600 hove:text-black '>
-            Bottom Wear</Link>
+        <div className="p-4">
+          <h2 className="text-xl font-semibold mb-4 ">Menu</h2>
+          <nav className="flex flex-col gap-y-4 ">
+            <Link
+              to="#"
+              onClick={toggleCartDrawer}
+              className="block text-gray-600 hove:text-black "
+            >
+              Men
+            </Link>
+            <Link
+              to="#"
+              onClick={toggleCartDrawer}
+              className="block text-gray-600 hove:text-black "
+            >
+              Women
+            </Link>
+            <Link
+              to="#"
+              onClick={toggleCartDrawer}
+              className="block text-gray-600 hove:text-black "
+            >
+              Top Wear
+            </Link>
+            <Link
+              to="#"
+              onClick={toggleCartDrawer}
+              className="block text-gray-600 hove:text-black "
+            >
+              Bottom Wear
+            </Link>
           </nav>
         </div>
       </div>
