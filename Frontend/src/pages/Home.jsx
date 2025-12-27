@@ -1,11 +1,11 @@
 import React from 'react'
-import Hero from '../../components/Layout/Hero'
-import GenderCollectionSector from '../../components/Product/GenderCollectionSector'
-import NewArrivals from '../../components/Product/NewArrivals'
-import ProductDetails from '../../components/Product/ProductDetails'
-import ProductGrid from '../../components/Product/ProductGrid'
-import FeatureCollection from '../../components/Product/FeatureCollection'
-import FeatureSection from '../../components/Product/FeatureSection'
+import Hero from '../components/Layout/Hero'
+import GenderCollectionSector from '../components/Product/GenderCollectionSector'
+import NewArrivals from '../components/Product/NewArrivals'
+import ProductDetails from '../components/Product/ProductDetails'
+import ProductGrid from '../components/Product/ProductGrid'
+import FeatureCollection from '../components/Product/FeatureCollection'
+import FeatureSection from '../components/Product/FeatureSection'
 
 
 const placeholderProducts = [
