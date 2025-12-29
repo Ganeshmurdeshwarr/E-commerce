@@ -10,6 +10,7 @@ import ProductDetails from './components/Product/ProductDetails';
 import CheckOut from './components/Cart/CheckOut';
 import OrderConfirm from './pages/OrderConfirm';
 import OrderDetailsPage from './pages/OrderDetailsPage';
+import MyOrdersPage from './pages/MyOrdersPage';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="checkout" element={<CheckOut/>}></Route>
         <Route path="order-confirmation" element={<OrderConfirm/>}></Route>
         <Route path="order/:id" element={<OrderDetailsPage/>}></Route>
+        <Route path="/my-orders" element={<MyOrdersPage/>}></Route>
       </Route>
     </Routes>
   );
