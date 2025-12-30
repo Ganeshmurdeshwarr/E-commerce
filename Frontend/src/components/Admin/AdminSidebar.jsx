@@ -14,10 +14,8 @@ const AdminSidebar = () => {
 
 
   return (
-    <div className="p-6 ">
+    <div className="p-6 fixed ">
       <div className="mb-6 flex flex-col ">
-        
-
         <Link
           to="/admin"
           className="text-3xl font-bold tracking-wider
@@ -30,36 +28,64 @@ const AdminSidebar = () => {
         >
           Devadiga’s
         </Link>
-
-      
       </div>
       <h2 className="text-xl font-medium mb-6 text-center">Admin Dashboard</h2>
 
       <nav className="flex flex-col space-y-2">
-        <NavLink to='/admin/users' className={({isActive})=> isActive ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2":"text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "} >
-        <FaUser/>
-        <span className=''>User</span>
+        <NavLink
+          to="/admin/users"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2"
+              : "text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "
+          }
+        >
+          <FaUser />
+          <span className="">User</span>
         </NavLink>
 
-        <NavLink to='/admin/Products' className={({isActive})=> isActive ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2":"text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "} >
-        <FaBoxOpen/>
-        <span className=''>Product</span>
+        <NavLink
+          to="/admin/Products"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2"
+              : "text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "
+          }
+        >
+          <FaBoxOpen />
+          <span className="">Product</span>
         </NavLink>
 
-        <NavLink to='/admin/order' className={({isActive})=> isActive ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2":"text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "} >
-        <FaClipboardList/>
-        <span className=''>Orders</span>
+        <NavLink
+          to="/admin/orders"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2"
+              : "text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "
+          }
+        >
+          <FaClipboardList />
+          <span className="">Orders</span>
         </NavLink>
 
-        <NavLink to='/' className={({isActive})=> isActive ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2":"text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "} >
-        <FaStore/>
-        <span className=''>Shop</span>
+        <NavLink
+          to="/admin/shop"
+          className={({ isActive }) =>
+            isActive
+              ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2"
+              : "text-gray-300 hover:text-white py-3 px-4 rounded flex items-center space-x-2 "
+          }
+        >
+          <FaStore />
+          <span className="">Shop</span>
         </NavLink>
       </nav>
       <div className="mt-6">
-        <button onClick={handleLogout}
-        className='w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 flex items-center justify-center space-x-2'>
-          <FaSignOutAlt/>
+        <button
+          onClick={handleLogout}
+          className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 flex items-center justify-center space-x-2"
+        >
+          <FaSignOutAlt />
           <span>Logout</span>
         </button>
       </div>

@@ -32,14 +32,16 @@ const toggleSidebar =()=>{
 
       {/* Sidebar */}
       <div
-        className={`bg-gray-900 w-64 min-h-screen text-white absolute md:relative transform-translate duration-300 ${isSidebarOpen ?"translate-x-0":"-translate-x-full"} transform md:translate-x-0 md:static md:block z-20`}
+        className={` bg-gray-900 w-64 min-h-screen text-white absolute md:relative transform-translate duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transform md:translate-x-0 md:static md:block z-20`}
       >
-       <AdminSidebar/>
+        <AdminSidebar />
       </div>
 
       {/* Main Content */}
       <div className="grow ">
-        <Outlet/>
+        <Outlet />
       </div>
     </div>
   );
