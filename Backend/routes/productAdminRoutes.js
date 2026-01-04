@@ -1,0 +1,24 @@
+const express = require("express");
+const Product = require("../Models/Product");
+const { protect, admin } = require("../middleware/authMiddleware");
+
+const router = express.Router()
+
+// @route GET/api/admin/Products
+// @Desc Get all products(Admin only)
+// @access Private/Admin
+
+router.get("/", protect , admin , async(req, res)=>{
+
+  try {
+    const products = await Product.find({});
+    if(products){
+       res.json(products);
+    }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
+  }
+})
+
+module.exports = router;
