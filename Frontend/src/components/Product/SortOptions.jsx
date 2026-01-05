@@ -5,11 +5,20 @@ const SortOptions = () => {
 
   const [searchParams , setSearchParams] = useSearchParams()
 
-const handleSortChange =(e)=>{
-  const sortBy = e.target.value
-  searchParams.set("sortBy", sortBy)
-  setSearchParams(searchParams)
-}
+const handleSortChange = (e) => {
+  const sortBy = e.target.value;
+
+  const params = new URLSearchParams(searchParams);
+
+  if (sortBy) {
+    params.set("sortBy", sortBy);
+  } else {
+    params.delete("sortBy");
+  }
+
+  setSearchParams(params);
+};
+
 
   return (
     <div className="mb-4 flex items-center justify-end">
