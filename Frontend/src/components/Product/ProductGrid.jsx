@@ -1,9 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const ProductGrid = ({ product }) => {
+const ProductGrid = ({ products ,loading ,error }) => {
+  if(loading){
+    return <p>Loading</p>
+  }
+
+  if(error){
+    return <p>Error: {error}</p>
+  }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 gap-4">{product.map((product ,index)=>(
+    <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 gap-4">{products?.map((product ,index)=>(
       <Link key={index} to={`/product/${product._id}`} className='block' >
         <div className='bg-white p-4 rounded-lg'>
           <div className="w-full h-96 mb-4">

@@ -1,25 +1,28 @@
-import { createSlice, createAsyncThunk, asyncThunkCreator } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk,  } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
 // Async thunk to create checkout session
 
-export const createCheckout = asyncThunkCreator("checkout/createCheckout", 
-  async( checkoutData,{rejectWithValue})=>{
+export const createCheckout = createAsyncThunk(
+  "checkout/createCheckout",
+  async (checkoutData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
-        checkoutData,{
-          headers: `Bearer ${localStorage.getItem("userToken")} `
-        },
+        checkoutData,
+        {
+          headers: `Bearer ${localStorage.getItem("userToken")} `,
+        }
       );
 
-      return response.data
+      return response.data;
     } catch (error) {
-       console.error(error);
-       return rejectWithValue(error.response.data);
+      console.error(error);
+      return rejectWithValue(error.response.data);
     }
-  });
+  }
+);
 
   const checkoutSlice= createSlice({
     name:"checkout",
@@ -35,11 +38,11 @@ export const createCheckout = asyncThunkCreator("checkout/createCheckout",
         state.loading= true;
         state.error= false;
       })
-      .addCase(createCheckout.fulfilled , (state, state)=>{
+      .addCase(createCheckout.fulfilled , (state, action)=>{
         state.loading= false;
         state.checkout= isAction.payload;
       })
-      .addCase(createCheckout.pending , (state, action)=>{
+      .addCase(createCheckout.rejected , (state, action)=>{
         state.loading= false;
         state.error= action.payload.message;
       })

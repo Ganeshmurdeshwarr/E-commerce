@@ -3,9 +3,23 @@ import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Product/FilterSidebar";
 import SortOptions from "../components/Product/SortOptions";
 import ProductGrid from "../components/Product/ProductGrid";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsByFilter } from "../Redux/slices/productsSlice";
 
 const CollectionPage = () => {
-  const [products, setProducts] = useState([]);
+  const {collection} = useParams()
+  const  [searchPara ] = useSearchParams() 
+  const dispatch = useDispatch()
+  const { products , loading , error} = useSelector((state)=> state.products)
+  const queryParams =  Object.fromEntries([...searchPara])
+
+  useEffect(()=>{
+    dispatch(fetchProductsByFilter({collection, ...queryParams} ))
+  },[dispatch , collection , searchPara])
+
+
+
   const sidebarRef = useRef(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -30,101 +44,7 @@ const CollectionPage = () => {
     }
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      const fetchedProducts = [
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=1",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=2",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=3",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=4",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=4",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=4",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=4",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-        {
-          _id: 1,
-          name: "Product 1",
-          price: 100,
-          images: [
-            {
-              url: "https://picsum.photos/500/500?random=4",
-              altText: "Stylish Jacket",
-            },
-          ],
-        },
-      ];
-      setProducts(fetchedProducts);
-    }, 1000);
-  }, []);
+
 
   return (
     <div className="flex flex-col lg:flex-row">
@@ -154,7 +74,7 @@ const CollectionPage = () => {
         {/* Sort Option */}
         <SortOptions />
         {/* Product Grid*/}
-        <ProductGrid product={products} />
+        <ProductGrid products={products} loading={loading} error={error} />
       </div>
     </div>
   );
