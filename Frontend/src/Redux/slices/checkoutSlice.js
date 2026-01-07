@@ -8,11 +8,15 @@ export const createCheckout = createAsyncThunk(
   "checkout/createCheckout",
   async (checkoutData, { rejectWithValue }) => {
     try {
+      console.log("TOKEN SENT:", localStorage.getItem("userToken"));
+
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/checkout`,
         checkoutData,
         {
-          headers: `Bearer ${localStorage.getItem("userToken")} `,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("userToken")} `,
+          },
         }
       );
 
@@ -40,11 +44,11 @@ export const createCheckout = createAsyncThunk(
       })
       .addCase(createCheckout.fulfilled , (state, action)=>{
         state.loading= false;
-        state.checkout= isAction.payload;
+        state.checkout= action.payload;
       })
       .addCase(createCheckout.rejected , (state, action)=>{
         state.loading= false;
-        state.error= action.payload.message;
+        state.error= action.error.message;
       })
     }
   })

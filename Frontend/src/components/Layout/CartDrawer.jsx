@@ -40,7 +40,7 @@ const CartDrawer = ({ cartOpen, toggleCartDrawer }) => {
       <div className="grow p-4 overflow-y-auto">
         <h2 className="text-xl font-semibold mb-4">Your Cart </h2>
         {/* Component for Cart Content  */}
-        {cart && cart?.products.length > 0 ? (
+        {cart && cart?.products?.length > 0 ? (
           <CartComponents cart={cart} userId={userId} guestId={guestId} />
         ) : (
           <p>Your cart is empty</p>

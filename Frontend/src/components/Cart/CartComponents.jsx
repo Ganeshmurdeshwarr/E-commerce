@@ -5,7 +5,6 @@ import { removeFromCart, updateCartItemQuantity } from "../../Redux/slices/cartS
 
 const CartComponents = ({ cart, userId, guestId }) => {
   const dispatch = useDispatch();
-console.log(cart);
   //Handle adding or subtracting to cart
   const handleAddToCart = (productId, delta, quantity, size, color) => {
     
@@ -25,7 +24,7 @@ console.log(cart);
     }
   };
 
-  const handleRemoveFromCart = (productId, guestId, userId, size, color) => {
+  const handleRemoveFromCart = (productId,  size, color) => {
     dispatch(removeFromCart({ productId, guestId, userId, size, color }));
   };
 

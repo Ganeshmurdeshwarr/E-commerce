@@ -4,7 +4,7 @@ import axios from "axios"
 
 // Retrieve user info and token from localStorage
 
-const userFormStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null;
+const userFormStorage = localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null;
 
 // Check for an existing guest ID in the localstorage or generate a new one
 
@@ -29,7 +29,7 @@ export const loginUser = createAsyncThunk("auth/loginUser", async(userData , {re
   const  response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, userData);
 
   localStorage.setItem("userInfo", JSON.stringify(response.data.user));
-  localStorage.setItem("userToken", JSON.stringify(response.data.token));
+  localStorage.setItem("userToken", response.data.token);
 
     return response.data.user  // Return the user object from the response
 
@@ -49,8 +49,8 @@ export const registerUser = createAsyncThunk("auth/registerUser", async(userData
     userData
   );
 
-  localStorage.setItem("userInfo", JSON.stringify(response.data.user));
-  localStorage.setItem("userToken", JSON.stringify(response.data.token));
+  localStorage.setItem("userInfo", response.data.user);
+  localStorage.setItem("userToken", response.data.token);
 
     return response.data.user  // Return the user object from the response
 
