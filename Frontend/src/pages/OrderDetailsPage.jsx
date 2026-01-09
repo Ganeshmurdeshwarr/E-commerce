@@ -1,57 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Header from "../components/Common/Header";
-import Footer from "../components/Common/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchOrderDetails } from "../Redux/slices/orderSlice"
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
-  const [orderDetails, setOrderDetails] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { orderDetails, error, loading } = useSelector((state) => state.orders);
+ 
 
-  useEffect(() => {
-    const mockOrderDetails = {
-      _id: id,
-      createdAt: new Date(),
-      isPaid: true,
-      isDelivered: false,
-      paymentMethod: "PayPal",
-      shippingMethod: "Standard",
-      shippingAddress: {
-        name: "John Doe",
-        address: "123 Broadway Ave",
-        city: "New York",
-        postalCode: "10001",
-        country: "USA",
-      },
-      orderItems: [
-        {
-          productId: "1",
-          name: "Jacket",
-          price: 120,
-          quantity: 1,
-          image: "https://picsum.photos/150?random=1",
-        },
-        {
-          productId: "2",
-          name: "Shirt",
-          price: 60,
-          quantity: 2,
-          image: "https://picsum.photos/150?random=2",
-        },
-      ],
-      itemsPrice: 240,
-      shippingPrice: 15,
-      taxPrice: 12,
-      totalPrice: 267,
-    };
-
-    setOrderDetails(mockOrderDetails);
-  }, [id]);
+ useEffect(()=>{
+  dispatch(fetchOrderDetails(id))
+ },[id , dispatch])
 
   const formatDate = (d) => {
     if (!d) return "";
     const dt = new Date(d);
     return dt.toLocaleString();
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   if (!orderDetails) {
     return (
@@ -66,7 +37,7 @@ const OrderDetailsPage = () => {
       </div>
     );
   }
-
+console.log(orderDetails);
   return (
     <div className="min-h-screen flex flex-col">
       <main className="container mx-auto px-4 py-12">
@@ -184,16 +155,17 @@ const OrderDetailsPage = () => {
             <div className="p-6 bg-white shadow-sm rounded-md border space-y-4">
               <h3 className="text-lg font-medium">Order Summary</h3>
               <div className="flex justify-between text-sm text-gray-700">
+
                 <div>Items</div>
-                <div>${orderDetails.itemsPrice.toFixed(2)}</div>
+                <div>${orderDetails.totalPrice}</div>
               </div>
               <div className="flex justify-between text-sm text-gray-700">
                 <div>Shipping</div>
-                <div>${orderDetails.shippingPrice.toFixed(2)}</div>
+                <div>$0</div>
               </div>
               <div className="flex justify-between text-sm text-gray-700">
                 <div>Tax</div>
-                <div>${orderDetails.taxPrice.toFixed(2)}</div>
+                <div>$0</div>
               </div>
               <div className="border-t pt-3 flex justify-between items-center">
                 <div className="text-lg font-semibold">Total</div>

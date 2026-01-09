@@ -50,7 +50,7 @@ export const updateUser = createAsyncThunk(
           },
         }
       );
-      return response.data;
+      return response.data.updatedUser;
     } catch (error) {
       console.error(error);
       return rejectWithValue(error.response.data);
@@ -60,11 +60,15 @@ export const updateUser = createAsyncThunk(
 
 // delete user info
 export const deleteUser = createAsyncThunk("admin/deleteUser", async (id) => {
-  await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("userToken")}`,
-    },
-  });
+  console.log("DELETE USER THUNK CALLED", id); // 👈 ADD THIS
+  await axios.delete(
+    `${import.meta.env.VITE_BACKEND_URL}/api/admin/users/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+      },
+    }
+  );
 
   return id;
 });
@@ -96,7 +100,7 @@ const adminSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         const updatedUser = action.payload;
         const userIndex = state.users.findIndex(
-          (user) => user._id === updateUser
+          (user) => user._id === updatedUser._id
         );
         if (userIndex !== -1) {
           state.users[userIndex] = updatedUser;
@@ -104,7 +108,7 @@ const adminSlice = createSlice({
       })
       // Delete user
       .addCase(deleteUser.fulfilled, (state , action)=>{
-        state.users = state.filter((user)=> user._id !== action.payload)
+        state.users = state.users.filter((user)=> user._id !== action.payload)
       })
       // Add user
       .addCase(addUser.pending, (state)=>{

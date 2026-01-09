@@ -1,19 +1,21 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { HiOutlineUser ,HiBars3BottomRight  } from 'react-icons/hi2'
-import { FaBagShopping } from "react-icons/fa6"
-import Searchbar from './Searchbar';
-import CartDrawer from '../Layout/CartDrawer';
-import { IoMdClose } from 'react-icons/io';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { HiOutlineUser, HiBars3BottomRight } from "react-icons/hi2";
+import { FaBagShopping } from "react-icons/fa6";
+import Searchbar from "./Searchbar";
+import CartDrawer from "../Layout/CartDrawer";
+import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
-
   const [cartOpen, setCartOpen] = useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
-  const {cart} = useSelector((state)=> state.cart)
+  const { cart } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
 
-  const cartItemCount = cart?.products?.reduce((total ,product)=> total + product.quantity ,0) || 0
+  const cartItemCount =
+    cart?.products?.reduce((total, product) => total + product.quantity, 0) ||
+    0;
 
   const toggleCartDrawer = () => {
     setCartOpen(!cartOpen);
@@ -21,7 +23,6 @@ const NavBar = () => {
   const toggleNavDrawer = () => {
     setNavDrawerOpen(!navDrawerOpen);
   };
-
 
   return (
     <>
@@ -63,12 +64,16 @@ const NavBar = () => {
         {/* Right icons */}
 
         <div className="flex items-center gap-x-4">
-          <Link
-            to="/admin"
-            className="block bg-black px-2 rounded text-sm text-white"
-          >
-            Admin
-          </Link>
+          {user &&
+            user.role ===
+              "admin" &&(
+                <Link
+                  to="/admin"
+                  className="block bg-black px-2 rounded text-sm text-white"
+                >
+                  Admin
+                </Link>
+              )}
 
           <Link to="/profile" className="hover:text-black">
             <HiOutlineUser className="h-6 w-6 text-gray-700" />
@@ -144,7 +149,6 @@ const NavBar = () => {
       </div>
     </>
   );
-  
 };
 
-export default NavBar
+export default NavBar;

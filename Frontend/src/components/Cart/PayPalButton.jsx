@@ -1,7 +1,7 @@
 import React from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 
-const PayPalButton = ({ onError, onSuccess, amount }) => {
+const PayPalButton = ({amount, onSuccess, onError  }) => {
   return (
     <PayPalButtons
       style={{ layout: "vertical" }}

@@ -1,55 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch,  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchUserOrders } from "../Redux/slices/orderSlice";
 
 const MyOrdersPage = () => {
-  const [orders, setOrder] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const { orders , error , loading} = useSelector((state)=> state.orders)
 
-  useEffect(() => {
-    setTimeout(() => {
-      const mockOrder = [
-        {
-          _id: "12345",
-          createdAt: new Date(),
-          shippingAddress: {
-            city: "New York",
-            country: "America",
-          },
-          orderItem: [
-            {
-              name: "Product 1",
-              image: "https://picsum.photos/500/500?ramdom=1",
-            },
-          ],
-          totalPrice: 100,
-          isPaid: true,
-        },
-        {
-          _id: "456789",
-          createdAt: new Date(),
-          shippingAddress: {
-            city: "New York",
-            country: "America",
-          },
-          orderItem: [
-            {
-              name: "Product 2",
-              image: "https://picsum.photos/500/500?ramdom=2",
-            },
-          ],
-          totalPrice: 600,
-          isPaid: false,
-        },
-      ];
-      setOrder(mockOrder);
-    }, 1000);
-  }, []);
-
+useEffect(()=>{
+  dispatch(fetchUserOrders());
+},[dispatch])
 
 const handleRowClick =(orderId)=>{
    navigate(`/order/${orderId}`)
 }
-
+if(loading) return <p>Loading...</p>
+if(error) return <p>Error: {error}</p>
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
@@ -76,8 +43,8 @@ const handleRowClick =(orderId)=>{
                 >
                   <td className="py-2 px-2 sm:px-4">
                     <img
-                      src={order.orderItem[0].image}
-                      alt={order.orderItem[0].name}
+                      src={order?.orderItems?.[0]?.image}
+                      alt={order?.orderItems?.[0]?.name}
                       className="w-10 h-10 s,:w-12 object-cover"
                     />
                   </td>
@@ -94,7 +61,7 @@ const handleRowClick =(orderId)=>{
                       : "N/A"}
                   </td>
                   <td className="p-2 sm:py-4 sm:px-4">
-                    {order.orderItem?.length}
+                    {order.orderItems?.length}
                   </td>
                   <td className="p-2 sm:py-4 sm:px-4">${order.totalPrice}</td>
                   <td className="p-2 sm:py-4 sm:px-4">

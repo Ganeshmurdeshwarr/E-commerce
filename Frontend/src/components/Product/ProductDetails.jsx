@@ -229,7 +229,11 @@ const ProductDetails = ({ productId }) => {
             <h2 className="text-2xl text-center font-medium mb-4 ">
               You May Also Like
             </h2>
-            <ProductGrid product={similarProducts} loading={loading} error={error} />
+            <ProductGrid
+              products={similarProducts}
+              loading={loading}
+              error={error}
+            />
           </div>
         </div>
       )}

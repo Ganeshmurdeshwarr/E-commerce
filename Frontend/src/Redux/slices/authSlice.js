@@ -4,7 +4,10 @@ import axios from "axios"
 
 // Retrieve user info and token from localStorage
 
-const userFormStorage = localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null;
+const userFormStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
 
 // Check for an existing guest ID in the localstorage or generate a new one
 
@@ -17,9 +20,35 @@ localStorage.setItem("guestId", initialGuestId);
 const initialState = {
   user: userFormStorage,
   guestId: initialGuestId,
-  loading: false,
+  loading: true,
   error:null,
 }
+
+export const loadUserFromToken = createAsyncThunk(
+  "auth/loadUserFromToken",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("userToken");
+      if (!token) return rejectWithValue("No token");
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/profile`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      return res.data;
+    } catch (err) {
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("userToken");
+      return rejectWithValue("Session expired");
+    }
+  }
+);
 
 // Async Thunk for User Login
 
@@ -77,30 +106,42 @@ const authSlice = createSlice({
   },
   extraReducers:(builder)=>{
     builder
-    .addCase(loginUser.pending , (state)=>{
-      state.loading = true ; 
-      state.error = null;
-    } )
-    .addCase(loginUser.fulfilled , (state, action)=>{
-      state.loading = false ;
-      state.user = action.payload;
-    } )
-    .addCase(loginUser.rejected , (state, action)=>{
-      state.loading = false ; 
-      state.error = action.payload?.message || "Something went wrong";
-    } )
-    .addCase(registerUser.pending , (state)=>{
-      state.loading = true ; 
-      state.error = null;
-    } )
-    .addCase(registerUser.fulfilled , (state, action)=>{
-      state.loading = false ;
-      state.user = action.payload;
-    } )
-    .addCase(registerUser.rejected , (state, action)=>{
-      state.loading = false ; 
-      state.error = action.payload?.message || "Something went wrong";
-    } )
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Something went wrong";
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Something went wrong";
+      })
+      .addCase(loadUserFromToken.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loadUserFromToken.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.loading = false;
+      })
+      .addCase(loadUserFromToken.rejected, (state) => {
+        state.user = null;
+        state.loading = false;
+      });
+
   }
 })
 

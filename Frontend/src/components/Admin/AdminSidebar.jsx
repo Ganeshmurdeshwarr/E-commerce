@@ -2,11 +2,17 @@ import React from 'react'
 import { FaClipboardList, FaSignOutAlt } from 'react-icons/fa';
 import { FaBoxOpen, FaStore, FaUser } from 'react-icons/fa6';
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from "../../Redux/slices/authSlice"
+import { clearCart } from "../../Redux/slices/cartSlice";
 
 const AdminSidebar = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleLogout =()=>{
+    dispatch(logout())
+    dispatch(clearCart())
      navigate("/")
   }
 
@@ -17,7 +23,7 @@ const AdminSidebar = () => {
     <div className="p-6 fixed ">
       <div className="mb-6 flex flex-col ">
         <Link
-          to="/admin"
+          to="/"
           className="text-3xl font-bold tracking-wider
              font-['Poppins',system-ui,sans-serif]
              bg-linear-to-r from-purple-500 via-pink-500 to-cyan-400
@@ -29,7 +35,7 @@ const AdminSidebar = () => {
           Devadiga’s
         </Link>
       </div>
-      <h2 className="text-xl font-medium mb-6 text-center">Admin Dashboard</h2>
+      <Link to="/admin" className="text-xl font-medium mb-6 text-center">Admin Dashboard</Link>
 
       <nav className="flex flex-col space-y-2">
         <NavLink
@@ -69,7 +75,7 @@ const AdminSidebar = () => {
         </NavLink>
 
         <NavLink
-          to="/admin/shop"
+          to="/"
           className={({ isActive }) =>
             isActive
               ? "bg-gray-700 text-white py-3 px-4 rounded items-center space-x-2"

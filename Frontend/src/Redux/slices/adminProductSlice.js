@@ -132,9 +132,9 @@ const adminProductSlice = createSlice({
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = state.products.filter((item)=>{
-          item._id !== action.payload._id
-        })
+        state.products = state.products.filter((item)=>
+          item._id !== action.payload
+        )
   })
       .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
