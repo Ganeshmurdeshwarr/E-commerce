@@ -38,7 +38,7 @@ const Home = () => {
     fetchBestSeller();
   }, [dispatch]);
   return (
-    <div>
+    <div className="bg-linear-to-b from-gray-400 via-gray-700 to-gray-900 text-white">
       <Hero />
       <GenderCollectionSector />
       <NewArrivals />

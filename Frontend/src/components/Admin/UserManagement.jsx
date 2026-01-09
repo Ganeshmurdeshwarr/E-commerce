@@ -19,7 +19,7 @@ useEffect(()=>{
  if (!loading && (!user || user.role !== "admin")) {
    navigate("/");
  }
-},[user , navigate])
+},[user , navigate,loading ])
 
 useEffect(()=>{
   if(user ){
@@ -68,10 +68,10 @@ if(window.confirm("Are you sure you want this User?")){
 }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 bg-linear-to-b from-gray-300 to-gray-400 h-full">
       <h2 className="text-2xl font-bold mb-6">User Management</h2>
-    {loading && <p>Loading...</p>}
-    {error && <p>Error:{error}</p>}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error:{error}</p>}
       {/* Add New User Form */}
       <div className="p-6 rounded-lg">
         <h3 className="text-lg font-bold  mb-4">Add New User</h3>
@@ -137,8 +137,8 @@ if(window.confirm("Are you sure you want this User?")){
 
       {/* User List Management */}
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
-        <table className="min-w-full text-left text-gray-500">
-          <thead className="bg-gray-100 text-xs uppercase text-gray-700">
+        <table className="min-w-full text-left text-gray-900">
+          <thead className="bg-gray-400 text-xs uppercase text-gray-900">
             <tr>
               <th className="py-3 px-4 ">Name</th>
               <th className="py-3 px-4 ">Email</th>
@@ -152,24 +152,25 @@ if(window.confirm("Are you sure you want this User?")){
                 <td className="p-4 font-medium text-gray-900 whitespace-nowrap">
                   {user.name}
                 </td>
+                <td className="p-4 ">{user.email}</td>
                 <td className="p-4 ">
-                  {user.email}
-                </td>
-                <td className="p-4 ">
-                 <select
-                 value={user.role} 
-                 name="" 
-                onChange={(e)=>handleRoleChange(user._id ,e.target.value)}
-                className="p-2 border rounded"
-                >
-                  <option value="customer">Customer</option>
-                  <option value="admin">Admin</option>
-                </select>
+                  <select
+                    value={user.role}
+                    name=""
+                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
+                    className="p-2 border rounded"
+                  >
+                    <option value="customer">Customer</option>
+                    <option value="admin">Admin</option>
+                  </select>
                 </td>
                 <td className="p-4">
-                  <button onClick={()=>handleDeleteUser(user._id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:red-600"
-                    >Delete</button>
+                  <button
+                    onClick={() => handleDeleteUser(user._id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:red-600"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

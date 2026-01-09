@@ -39,65 +39,83 @@ const Register = () => {
   };
 
   return (
-    <div className="flex">
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-2">
+    <div className="flex my-10">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-6">
         <form
           onSubmit={(e) => handleSubmit(e)}
-          className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm"
+          className="w-full max-w-md bg-linear-to-b from-pink-200 via-blue-300 to-green-300  backdrop-blur-md
+               p-8 rounded-2xl border border-gray-200
+               shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
         >
-          <div className="flex justify-center mb-6">
-            <h2 className="text-xl font-medium">Rabbit</h2>
+          <div className="flex justify-center mb-8">
+            <h2 className="text-lg font-semibold tracking-wide text-gray-800">
+              Devadiga's
+            </h2>
           </div>
-          <h2 className="text-2xl font-bold text-center mb-6">Hey there!🙌 </h2>
-          <p className="text-center mb-6">
-            Enter username and password to Register
+
+          <p className="text-center text-gray-500 mb-8 text-sm">
+            Please enter your details to sign in 👋
           </p>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Name</label>
+            <label className="block text-xs font-medium text-gray-600 mb-2">
+              Name
+            </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full px-4 py-3 rounded-lg border border-gray-700
+               focus:outline-none focus:ring-2 focus:ring-black/80
+               focus:border-black transition"
               placeholder="Enter your  Name "
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Email</label>
+            <label className="block text-xs font-medium text-gray-600 mb-2">
+              Email
+            </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded"
-              placeholder="Enter your Email address"
+              className="w-full px-4 py-3 rounded-lg border border-gray-700
+               focus:outline-none focus:ring-2 focus:ring-black/80
+               focus:border-black transition"
+              placeholder="you@example.com"
             />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">Password</label>
+          <div className="mb-6">
+            <label className="block text-xs font-medium text-gray-600 mb-2">
+              Password
+            </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded"
-              placeholder="Enter your password"
+              className="w-full px-4 py-3 rounded-lg border border-gray-700
+               focus:outline-none focus:ring-2 focus:ring-black/80
+               focus:border-black transition"
+              placeholder="••••••••"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-black text-white p-2 rounded font-semibold hover:bg-gray-800 transition"
+            className="w-full bg-black text-white py-3 rounded-xl font-semibold
+             hover:bg-gray-900 active:scale-[0.98]
+             transition-all duration-200"
           >
-            {loading ? "Loading..." : "Sign In"}
+            {loading ? "Signing in..." : "Sign In"}
           </button>
 
-          <p className="mt-6 text-center text-sm ">
-            Don't have an account?{" "}
+          <p className="mt-8 text-center text-sm text-gray-500">
+            Already have an account?{" "}
             <Link
               to={`/login?redirect=${encodeURIComponent(redirect)}`}
-              className="text-blue-500"
+              className="font-medium text-black hover:underline"
             >
               Login
             </Link>

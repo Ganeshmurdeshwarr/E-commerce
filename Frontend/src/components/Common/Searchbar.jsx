@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HiMagnifyingGlass, HiMiniXMark } from "react-icons/hi2";
 import { Form, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { setFilters , fetchProductsByFilter } from "../../Redux/slices/productsSlice";
 
 const Searchbar = () => {
@@ -28,7 +28,7 @@ const Searchbar = () => {
   return (
     <div
       className={`flex items-center justify-center w-full transition-all duration-300 ${
-        isOpen ? "absolute top-0 left-0 w-full bg-white h-24 z-50 " : "w-auto"
+        isOpen ? "absolute top-0 left-0 w-full bg-gray-400 h-24 z-50 " : "w-auto"
       }`}
     >
       {isOpen ? (
@@ -43,7 +43,7 @@ const Searchbar = () => {
               value={searchItem}
               onChange={(e) => setSearchItem(e.target.value)}
               className="bg-gray-300 px-4 pl-2 pr-12 py-2 rounded-lg focus:outline-none w-full
-           placeholder:text-gary-700"
+           placeholder:text-black"
             />
             {/* Search icon */}
             <button
@@ -57,7 +57,7 @@ const Searchbar = () => {
           <button
             type="button"
             onClick={handleSearchBtn}
-            className="absolute right-84 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800 "
+            className="absolute right-20 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800 "
           >
             <HiMiniXMark className="w-10 h-10" />
           </button>

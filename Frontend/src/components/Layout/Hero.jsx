@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Hero = () => {
   return (
-    <section className="relative ">
+    <section className="relative  ">
       <img
         src={heroImg}
         alt="hero image"
@@ -13,16 +13,20 @@ const Hero = () => {
 
       <div className="absolute inset-0 bg-black/5  flex items-center justify-center">
         <div className="text-center text-white p-6">
-          <h1 className="text-4xl md:text-9xl font-bold tracking-tighter uppercase mb-4  ">
-            {" "}
+          <h1
+            className="text-4xl md:text-9xl font-bold tracking-tighter uppercase mb-4
+               bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600
+               bg-clip-text text-transparent"
+          >
             Vacation <br /> Ready
           </h1>
+
           <p className="text-sm tracking-tighter md:text-lg mb-6">
             Explore our vacation-ready outfit with fast worldwide shipping
           </p>
           <Link
             to="#"
-            className="bg-white text-gray-950 px-2  py-2 rounded-sm text-lg "
+            className="bg-gray-400 text-gray-950 px-2  py-2 rounded-sm text-lg "
           >
             Shop Now
           </Link>

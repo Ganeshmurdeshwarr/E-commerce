@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { IoMdClose } from 'react-icons/io'
 import CartComponents from '../Cart/CartComponents';
 import { useNavigate } from 'react-router-dom';
@@ -25,9 +25,11 @@ const CartDrawer = ({ cartOpen, toggleCartDrawer }) => {
 
   return (
     <div
-      className={`fixed top-0 right-0 w-3/4 sm-w-1/2 md:w-120 h-full bg-white shadow-lg transform transition-transform duration-300 flex flex-col z-50 ${
-        cartOpen ? "translate-x-0" : "translate-x-full"
-      } `}
+      className={`fixed top-0 right-0 w-3/4 sm:w-1/2 md:w-md h-full
+  bg-linear-to-b from-white to-gray-700
+  shadow-2xl  border-l border-gray-200
+  transform transition-transform duration-300 flex flex-col z-50
+  ${cartOpen ? "translate-x-0" : "translate-x-full"}`}
     >
       {/* Close Button */}
       <div className="flex justify-end p-4">
@@ -38,12 +40,12 @@ const CartDrawer = ({ cartOpen, toggleCartDrawer }) => {
 
       {/* cart content  */}
       <div className="grow p-4 overflow-y-auto">
-        <h2 className="text-xl font-semibold mb-4">Your Cart </h2>
+        <h2 className="text-3xl font-bold mb-4 ">Your Cart </h2>
         {/* Component for Cart Content  */}
         {cart && cart?.products?.length > 0 ? (
           <CartComponents cart={cart} userId={userId} guestId={guestId} />
         ) : (
-          <p>Your cart is empty</p>
+          <p className='text-center text-red-400 text-xl'>Your cart is empty. Please add some items..!</p>
         )}
       </div>
 

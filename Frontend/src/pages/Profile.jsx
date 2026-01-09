@@ -24,7 +24,7 @@ const Profile = () => {
  }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-linear-to-b from-gray-300 to-gray-400">
       <div className="grow container mx-auto p-4 md:p-6">
         <div className="flex flex-col md:flex-row md:gap-x-6 gap-y-6 md:gap-y-0">
           {/* Left section*/}

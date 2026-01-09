@@ -117,8 +117,9 @@ const FilterSidebar = () => {
   }
 
   return (
-    <div className="p-4">
-      <h3 className="text-xl font-medium text-gray-800 mb-4">Filter</h3>
+    <div className="p-4 bg-linear-to-b from-pink-50 via-blue-300 to-green-400 h-full">
+      <h3 className="text-3xl font-bold text-blue-800 mb-4">Filter</h3>
+      <hr className="mb-4" />
 
       {/* Category Filter */}
       <div className="mb-6">

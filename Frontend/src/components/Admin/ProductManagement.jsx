@@ -27,11 +27,11 @@ const handleDelete=(id)=>{
  if(loading) return <p>Loading...</p>
  if(error) return <p>Error: {error}</p>
   return (
-    <div className='max-w-7xl p-6 mx-auto'>
+    <div className="max-w-7xl p-6 mx-auto bg-linear-to-b from-gray-300 to-gray-400 h-full">
       <h2 className="text-2xl font-bold mb-6">Product Management</h2>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
-        <table className='min-w-full text-left text-gray-500'>
-          <thead className='bg-gray-300 text-xs uppercase text-gray-700'>
+        <table className="min-w-full text-left text-gray-900">
+          <thead className="bg-gray-400 text-xs uppercase text-gray-700">
             <tr>
               <th className="py-3 px-4">Name</th>
               <th className="py-3 px-4">Price</th>
@@ -40,30 +40,48 @@ const handleDelete=(id)=>{
             </tr>
           </thead>
           <tbody>
-            {products.length > 0 ? products.map((product)=>(
-              <tr key={product._id}
-              className='border-b hover:bg-gray-100 cursor-pointer'
-              >
-                <td className='p-4 font-medium text-gray-950 whitespace-nowrap'>{product.name}</td>
-                <td className='p-4'>{product.price}</td>
-                <td className='p-4'>{product.sku}</td>
-                <td className='p-4'>
-                  <Link to={`/admin/products/${product._id}/edit`}
-                  className="bg-yellow-500 text-white rounded mr-2 hover:bg-yellow-600 py-1 px-2" >Edit</Link>
-                  <button onClick={()=>handleDelete(product._id)} className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Delete</button>
-                </td>
-              </tr> 
-            )):(
+            {products.length > 0 ? (
+              products.map((product) => (
+                <tr
+                  key={product._id}
+                  className="border-b hover:bg-gray-100 cursor-pointer"
+                >
+                  <td className="p-4 font-medium text-gray-950 whitespace-nowrap">
+                    {product.name}
+                  </td>
+                  <td className="p-4">{product.price}</td>
+                  <td className="p-4">{product.sku}</td>
+                  <td className="p-4">
+                    <Link
+                      to={`/admin/products/${product._id}/edit`}
+                      className="bg-yellow-500 text-white rounded-md mr-2 hover:bg-yellow-600 py-2 px-3"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr>
-
-                <td  colSpan={4} className='p-4 py-10 text-center  text-2xl text-gray-500'>No Products found!!</td>
+                <td
+                  colSpan={4}
+                  className="p-4 py-10 text-center  text-2xl text-gray-500"
+                >
+                  No Products found!!
+                </td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
 
 export default ProductManagement

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Product/FilterSidebar";
 import SortOptions from "../components/Product/SortOptions";
@@ -12,11 +12,15 @@ const CollectionPage = () => {
   const  [searchPara ] = useSearchParams() 
   const dispatch = useDispatch()
   const { products , loading , error} = useSelector((state)=> state.products)
-  const queryParams =  Object.fromEntries([...searchPara])
+  const queryParams = useMemo(
+    () => Object.fromEntries([...searchPara]),
+    [searchPara]
+  );
 
-  useEffect(()=>{
-    dispatch(fetchProductsByFilter({collection, ...queryParams} ))
-  },[dispatch , collection , searchPara])
+
+  useEffect(() => {
+    dispatch(fetchProductsByFilter({ collection, ...queryParams }));
+  }, [dispatch, collection, queryParams]);
 
 
 
@@ -47,12 +51,12 @@ const CollectionPage = () => {
 
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row bg-linear-to-b from-gray-500 via-gray-700 to-gray-900">
       {/* Mobile Filter Button */}
 
       <button
         onClick={toggleSidebar}
-        className="lg:hidden border p-2 flex justify-center items-center"
+        className="lg:hidden border p-2 flex justify-center items-center bg-gray-700"
       >
         <FaFilter className="mr-2 " />
         Filter
@@ -69,7 +73,7 @@ const CollectionPage = () => {
       </div>
 
       <div className="grow p-4">
-        <h2 className="text-2xl uppercase mb-4 ">All Collection </h2>
+        <h2 className="text-2xl uppercase mb-4 font-bold ">All Collection </h2>
 
         {/* Sort Option */}
         <SortOptions />

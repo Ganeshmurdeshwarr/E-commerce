@@ -6,19 +6,19 @@ import { Outlet } from 'react-router-dom'
 
 const UserLayout = () => {
   return (
-   <>
-   {/* Header */}
-   <Header/>
+    <div className="bg-linear-to-b from-black to-gray-700">
+      {/* Header */}
+      <Header />
 
-   {/* Main Content */}
-   <main>
-    <Outlet/>
-   </main>
-   
-   {/* Footer */}
-   <Footer/>
-   </>
-  )
+      {/* Main Content */}
+      <main >
+        <Outlet />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
 }
 
 export default UserLayout
