@@ -23,7 +23,6 @@ const AdminHomePage = () => {
     dispatch(fetchAdminProducts());
     dispatch(fetchAllOrders());
   },[dispatch])
-console.log(totalSales);
   return (
     <div className="max-w-7xl mx-auto p-6 bg-linear-to-b from-gray-300 to-gray-400 h-full">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>

@@ -9,6 +9,7 @@ const userFormStorage = localStorage.getItem("userInfo")
   : null;
 
 
+
 // Check for an existing guest ID in the localstorage or generate a new one
 
 const initialGuestId = localStorage.getItem("guestId") || `guest_${new Date().getTime()}`;

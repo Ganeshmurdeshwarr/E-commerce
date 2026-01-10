@@ -18,7 +18,7 @@ const handleRowClick =(orderId)=>{
 if(loading) return <p>Loading...</p>
 if(error) return <p>Error: {error}</p>
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 bg-linear-to-b from-gray-300 to-gray-400  my-10">
       <h2 className="text-xl sm:text-2xl font-bold mb-6">My Orders</h2>
       <div className="relative shadow-md sm:rounded-lg overflow-hidden">
         <table className="min-w-full text-left text-gray-500">
@@ -37,7 +37,7 @@ if(error) return <p>Error: {error}</p>
             {orders.length > 0 ? (
               orders.map((order) => (
                 <tr
-                onClick={()=>handleRowClick(order._id)}
+                  onClick={() => handleRowClick(order._id)}
                   key={order._id}
                   className="border-b hover:border-gray-50 cursor-pointer"
                 >

@@ -37,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex ">
+    <div className="flex py-10">
       <div className="w-full md:w-1/2 flex items-center justify-center px-6 ">
         <form
           onSubmit={handleSubmit}
