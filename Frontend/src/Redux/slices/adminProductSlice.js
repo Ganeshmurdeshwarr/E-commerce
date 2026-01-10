@@ -4,18 +4,20 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_BACKEND_URL}`;
-const USER_TOKEN = `Bearer ${localStorage.getItem("userToken")}`;
+
 
 // async thunk to fetch admin products
 export const fetchAdminProducts = createAsyncThunk(
   "adminProducts/fetchProduct",
   async () => {
-    const response = await axios.get(`${API_URL}/api/admin/products`, {
-      headers: {
-        Authorization: USER_TOKEN,
-      },
-    });
+    const response = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}/api/admin/products`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      }
+    );
     return response.data;
   }
 );
@@ -25,11 +27,15 @@ export const fetchAdminProducts = createAsyncThunk(
 export const createProduct = createAsyncThunk(
   "adminProducts/createProduct",
   async (productData) => {
-    const response = await axios.post(`${API_URL}/api/products`, productData, {
-      headers: {
-        Authorization: USER_TOKEN,
-      },
-    });
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/products`,
+      productData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+        },
+      }
+    );
 
     return response.data;
   }
@@ -39,13 +45,14 @@ export const createProduct = createAsyncThunk(
 
 export const updateProduct = createAsyncThunk(
   "adminProducts/updateProduct",
-  async ({ id, productData }) => {
+  async ({ id, ...productData }) => {
     const response = await axios.put(
-      `${API_URL}/api/products/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
       productData,
       {
         headers: {
-          Authorization: USER_TOKEN,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
         },
       }
     );
@@ -58,11 +65,14 @@ export const updateProduct = createAsyncThunk(
 export const deleteProduct = createAsyncThunk(
   "adminProducts/deleteProduct",
   async (id) => {
-   await axios.delete(`${API_URL}/api/products/${id}`, {
-      headers: {
-        Authorization: USER_TOKEN,
-      },
-    });
+   await axios.delete(
+     `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
+     {
+       headers: {
+         Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+       },
+     }
+   );
     return id;
   }
 );

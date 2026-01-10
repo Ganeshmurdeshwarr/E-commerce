@@ -31,7 +31,7 @@ const calculateEstimatedDelivery = (createdAt) => {
 
 
   return (
-    <div className='max-w-4xl mx-auto p-6 bg-white'>
+    <div className='max-w-4xl mx-auto  py-6 md:p-6 px-2 bg-white my-10'>
       <h1 className="text-4xl font-black text-center text-emerald-700 mb-8">
         Thank You for Your Order!
       </h1>
@@ -47,7 +47,7 @@ const calculateEstimatedDelivery = (createdAt) => {
           </div>
 
           {/*  Estimated Delivery  */}
-          <div className="">
+          <div className="ml-2">
             <p className='text-emerald-700 text-sm'>
               Estimated Delivery : {calculateEstimatedDelivery(checkout.createdAt)}
             </p>
