@@ -28,7 +28,17 @@ const handleDelete=(id)=>{
  if(error) return <p>Error: {error}</p>
   return (
     <div className="max-w-7xl p-6 mx-auto bg-linear-to-b from-gray-300 to-gray-400 h-full">
-      <h2 className="text-2xl font-bold mb-6">Product Management</h2>
+      <div className="flex items-center justify-between ">
+        <h2 className="md:text-2xl font-bold mb-6 px-2 py-2 text-xl">Product Management</h2>
+        <button>
+          <Link
+            to="/admin/products/add"
+            className="mb-4 inline-block bg-green-600 text-white px-4 py-2 rounded"
+          >
+            Add Product
+          </Link>
+        </button>
+      </div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
         <table className="min-w-full text-left text-gray-900">
           <thead className="bg-gray-400 text-xs uppercase text-gray-700">

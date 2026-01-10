@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/Common/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import{loadUserFromToken} from "./Redux/slices/authSlice"
+import AddProductPage from "./components/Admin/AddNewProduct";
 
 const App = () => {
   const dispatch = useDispatch()
@@ -50,6 +51,7 @@ const App = () => {
         <Route index element={<AdminHomePage />} />
         <Route path="users" element={<UserManagement />} />
         <Route path="products" element={<ProductManagement />} />
+        <Route path="products/add" element={<AddProductPage />} />
         <Route path="products/:id/edit" element={<EditProductPage />} />
         <Route path="orders" element={<OrderManagement />} />
       </Route>

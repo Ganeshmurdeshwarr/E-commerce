@@ -43,7 +43,7 @@ export const fetchProductsByFilter = createAsyncThunk(
 // async thunk to fetch single product by Id
 export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductsDetails",
-  async ( {id} ) => {
+  async ( id ) => {
     const response = await axios.get(
       `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`
     );

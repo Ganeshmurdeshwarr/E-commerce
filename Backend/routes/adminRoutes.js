@@ -31,7 +31,7 @@ router.post("/", protect, admin, async (req, res) => {
       res.status(400).json({ message: "User already exist" });
     }
 
-    user = new User.create({
+    user = new User({
       name,
       email,
       password,
@@ -50,9 +50,12 @@ router.post("/", protect, admin, async (req, res) => {
 // @Desc Update user info  (Admin only)- Name , email ,role
 // @access Private/Admin
 
-router.put("/", protect, admin, async (req, res) => {
+router.put("/:id", protect, admin, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
@@ -70,7 +73,7 @@ router.put("/", protect, admin, async (req, res) => {
 // @Desc Delete user  (Admin only)
 // @access Private/Admin
 
-router.delete("/" ,protect , admin, async(req,res)=>{
+router.delete("/:id" ,protect , admin, async(req,res)=>{
   try {
     const user = User.findById(req.params.id)
     if(user){

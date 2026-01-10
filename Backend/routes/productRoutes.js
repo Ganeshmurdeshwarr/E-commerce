@@ -1,5 +1,6 @@
 const express = require("express");
 const Product = require("../Models/Product");
+const mongoose = require("mongoose");
 const { protect, admin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
@@ -64,7 +65,7 @@ router.post("/", protect, admin, async (req, res) => {
 });
 
 // @ route PUT /api/products/:id
-//desc Update an existing Product Id
+//@desc Update an existing Product Id
 // @access Private/Admin
 
 router.put("/:id", protect, admin, async (req, res) => {
@@ -160,7 +161,7 @@ router.get("/", async (req, res) => {
   try {
     const {
       collection,
-      size,
+      sizes,
       color,
       gender,
       minPrice,
@@ -180,7 +181,7 @@ router.get("/", async (req, res) => {
       query.collections = collection;
     }
     if (category && category.toLocaleLowerCase() !== "all") {
-      query.collections = category;
+      query.category = category;
     }
 
     if (material) {
@@ -189,8 +190,8 @@ router.get("/", async (req, res) => {
     if (brand) {
       query.brand = { $in: brand.split(",") };
     }
-    if (size) {
-      query.size = { $in: size.split(",") };
+    if (sizes) {
+      query.sizes = { $in: size.split(",") };
     }
 
     if (color) {
@@ -266,7 +267,7 @@ router.get("/best-seller", async (req, res) => {
 });
 
 // @route GET /api/products/new-arrivals
-// @Desc Retrieve the latest 8 product -creation date
+// @Desc Retrieve the latest 8 product creation date
 // @access Public
 
 router.get("/new-arrivals", async (req, res) => {
@@ -288,24 +289,6 @@ router.get("/new-arrivals", async (req, res) => {
   }
 });
 
-// @route GET /api/products/:id
-// @Desc Get a single product by ID
-// @access Public
-
-router.get("/:id", async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id);
-    if (product) {
-      res.json(product);
-    } else {
-      res.status(404).json({ message: "Product not found" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Server error");
-  }
-});
-
 // @route GET /api/products/similar/:id
 // @Desc Retrieve similar product based on the current product's gender and category
 // @access Public
@@ -314,10 +297,15 @@ router.get("/similar/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Validate id to avoid CastError
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product id" });
+    }
+
     const product = await Product.findById(id);
 
     if (!product) {
-      return res.status(404).json({ message: "PRduct not found" });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     const similarProducts = await Product.find({
@@ -330,6 +318,31 @@ router.get("/similar/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
+  }
+});
+
+// @route GET /api/products/:id
+// @Desc Get a single product by ID
+// @access Public
+
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Validate id to avoid CastError
+    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product id" });
+    }
+
+    const product = await Product.findById(id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: "Product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
   }
 });
 

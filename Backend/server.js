@@ -5,7 +5,7 @@ const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoutes")
 const productRouter = require("./routes/productRoutes")
 const cartRouter = require("./routes/cartRouter")
-const checkoutRouter = require("./routes/cartRouter");
+const checkoutRouter = require("./routes/checkoutRouter");
 const orderRouter = require("./routes/orderRouter");
 const uploadRouter = require("./routes/uploadRoutes");
 const subscriberRouter = require("./routes/SubscribeRouter");
@@ -24,9 +24,12 @@ const PORT = process.env.PORT || 3000
 // Connect to MongoDB
 connectDB()
 
-app.get("/" , (req , res)=>{
-  res.send("'WELCOME TO BACKEND")
-})
+
+
+//Admin
+app.use("/api/admin/users", adminRoutes);
+app.use("/api/admin/products", productAdminRoutes);
+app.use("/api/admin/orders", adminOrderRoutes);
 
 //API Routes
 app.use("/api/users", userRoutes)
@@ -36,12 +39,7 @@ app.use("/api/checkout", checkoutRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api", subscriberRouter);
-app.use("/api/", productAdminRoutes);
 
-//Admin
-app.use("/api/admin/users", adminRoutes);
-app.use("/api/admin/products", productAdminRoutes);
-app.use("/api/admin/orders", adminOrderRoutes);
 
 app.listen(PORT , ()=>{
   console.log(`Server is running on http://localhost:${PORT} `)

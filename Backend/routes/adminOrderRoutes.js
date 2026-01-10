@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", protect, admin, async (req, res) => {
   try {
-    const orders = await Order.find({}).populate("user,name email");
+    const orders = await Order.find({}).populate("user","name email");
     res.json(orders);
   } catch (error) {
     console.error(error);
@@ -22,9 +22,9 @@ router.get("/", protect, admin, async (req, res) => {
 // @Desc Update order status (Admin only)
 // @access Private/Admin
 
-router.put("/", protect, admin, async (req, res) => {
+router.put("/:id", protect, admin, async (req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id).populate("user", "name");
     if (order) {
       order.status = req.body.status || order.status;
       order.isDelivered =
@@ -48,7 +48,7 @@ router.put("/", protect, admin, async (req, res) => {
 // @Desc Delete order  (Admin only)
 // @access Private/Admin
 
-router.delete("/" ,protect , admin, async(req,res)=>{
+router.delete("/:id" ,protect , admin, async(req,res)=>{
   try {
     const order = Order.findById(req.params.id)
     if(order){

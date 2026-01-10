@@ -26,7 +26,7 @@ const ProductDetails = ({ productId }) => {
 
   useEffect(() => {
     if (productFetchId && productFetchId !== "undefined") {
-      dispatch(fetchProductDetails({ id: productFetchId }));
+      dispatch(fetchProductDetails( productFetchId ));
       dispatch(fetchSimilarProducts({ id: productFetchId }));
     }
   }, [dispatch, productFetchId]);
