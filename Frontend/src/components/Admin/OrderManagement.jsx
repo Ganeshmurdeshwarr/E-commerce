@@ -49,8 +49,8 @@ if (error) return <p>Error: {error}</p>
                     #{order._id}
                   </td>
 
-                  <td className="p-4 ">{order.user.name}</td>
-                  <td className="p-4 ">${order.totalPrice}</td>
+                  <td className="p-4 ">{order?.user?.name}</td>
+                  <td className="p-4 ">${order?.totalPrice}</td>
                   <td className="p-4 ">
                     <select
                       value={order.status}
