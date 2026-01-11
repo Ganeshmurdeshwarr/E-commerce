@@ -26,7 +26,6 @@ app.use(
     credentials: true,
   })
 );
-app.options("*", cors());
 
 
 const PORT = process.env.PORT || 3000;
